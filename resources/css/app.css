@@ -1,0 +1,147 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views';
+@source '../js';
+
+@theme {
+    --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Code', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+    --color-ink-950: #070a10;
+    --color-ink-900: #0b1018;
+    --color-ink-850: #0f1620;
+    --color-ink-800: #141c28;
+    --color-ink-700: #1d2836;
+    --color-ink-600: #2a3747;
+    --color-ink-500: #45556a;
+    --color-ink-400: #7b8ba1;
+    --color-ink-300: #a9b6c7;
+    --color-ink-200: #d3dbe5;
+    --color-ink-100: #eef2f7;
+
+    --color-brand-500: #0ba4db;
+    --color-brand-400: #3bbcea;
+    --color-brand-600: #0989b8;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+[x-cloak] { display: none !important; }
+
+html { color-scheme: dark; }
+
+body {
+    @apply bg-ink-950 text-ink-200 antialiased;
+}
+
+::selection { background: rgb(11 164 219 / 0.35); }
+
+/* Focus: always visible for keyboard users */
+:focus-visible {
+    outline: 2px solid var(--color-brand-400);
+    outline-offset: 2px;
+}
+
+/* Scrollbars */
+* { scrollbar-width: thin; scrollbar-color: var(--color-ink-600) transparent; }
+
+@layer components {
+    .card { @apply rounded-xl border border-ink-700 bg-ink-900; }
+    .card-header { @apply flex items-center justify-between gap-3 border-b border-ink-700 px-4 py-3; }
+    .card-body { @apply p-4; }
+
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition
+               disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap;
+    }
+    .btn-sm { @apply px-2.5 py-1.5 text-xs; }
+    .btn-primary { @apply border-brand-500 bg-brand-500 text-ink-950 hover:bg-brand-400 hover:border-brand-400; }
+    .btn-secondary { @apply border-ink-600 bg-ink-800 text-ink-100 hover:bg-ink-700; }
+    .btn-ghost { @apply border-transparent bg-transparent text-ink-300 hover:bg-ink-800 hover:text-ink-100; }
+    .btn-danger { @apply border-red-500/40 bg-red-500/10 text-red-300 hover:bg-red-500/20; }
+    .btn-live { @apply border-red-500 bg-red-600 text-white hover:bg-red-500; }
+
+    .input {
+        @apply block w-full rounded-lg border border-ink-600 bg-ink-850 px-3 py-2 text-sm text-ink-100
+               placeholder:text-ink-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none
+               disabled:opacity-60;
+    }
+    .input-error { @apply border-red-500/70 focus:border-red-500 focus:ring-red-500/30; }
+    select.input { @apply pr-8; }
+    .label { @apply mb-1 block text-xs font-semibold tracking-wide text-ink-300; }
+    .help { @apply mt-1 text-xs text-ink-400; }
+    .error-text { @apply mt-1 text-xs text-red-400; }
+
+    .badge { @apply inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide; }
+    .badge-neutral { @apply border-ink-600 bg-ink-800 text-ink-300; }
+    .badge-success { @apply border-emerald-500/40 bg-emerald-500/10 text-emerald-300; }
+    .badge-warning { @apply border-amber-500/40 bg-amber-500/10 text-amber-300; }
+    .badge-danger { @apply border-red-500/40 bg-red-500/10 text-red-300; }
+    .badge-info { @apply border-brand-500/40 bg-brand-500/10 text-brand-400; }
+
+    .method { @apply inline-flex min-w-[3.4rem] justify-center rounded px-1.5 py-0.5 font-mono text-[10px] font-bold tracking-wider; }
+    .method-GET { @apply bg-emerald-500/15 text-emerald-300; }
+    .method-POST { @apply bg-sky-500/15 text-sky-300; }
+    .method-PUT { @apply bg-amber-500/15 text-amber-300; }
+    .method-PATCH { @apply bg-violet-500/15 text-violet-300; }
+    .method-DELETE { @apply bg-red-500/15 text-red-300; }
+
+    .code-block {
+        @apply overflow-auto rounded-lg border border-ink-700 bg-ink-950 p-3 font-mono text-xs leading-relaxed text-ink-200;
+    }
+    .kbd { @apply rounded border border-ink-600 bg-ink-800 px-1.5 py-0.5 font-mono text-[10px] text-ink-300; }
+
+    .tab { @apply -mb-px border-b-2 border-transparent px-3 py-2 text-sm text-ink-400 hover:text-ink-100; }
+    .tab-active { @apply border-brand-500 text-ink-100; }
+
+    .table { @apply w-full text-left text-sm; }
+    .table th { @apply border-b border-ink-700 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-ink-400; }
+    .table td { @apply border-b border-ink-800 px-3 py-2 align-top; }
+    .table tbody tr:hover { @apply bg-ink-850; }
+
+    .nav-link { @apply flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-ink-300 hover:bg-ink-800 hover:text-ink-100; }
+    .nav-link-active { @apply bg-ink-800 text-ink-100; }
+}
+
+/* JSON syntax colours (used by both the tree and the raw/editor views) */
+.json-key { color: #7dd3fc; }
+.json-string { color: #86efac; }
+.json-number { color: #fbbf24; }
+.json-boolean { color: #c4b5fd; }
+.json-null { color: #f472b6; }
+.json-punct { color: var(--color-ink-400); }
+
+.json-tree { @apply font-mono text-xs leading-6; }
+.json-tree details { padding-left: 1rem; position: relative; }
+.json-tree details > summary { list-style: none; cursor: pointer; margin-left: -1rem; }
+.json-tree details > summary::-webkit-details-marker { display: none; }
+.json-tree details > summary::before {
+    content: '▸'; display: inline-block; width: 1rem; color: var(--color-ink-500); transition: transform .1s;
+}
+.json-tree details[open] > summary::before { transform: rotate(90deg); }
+.json-tree details:not([open]) > summary .json-preview { display: inline; }
+.json-tree .json-preview { display: none; color: var(--color-ink-500); }
+.json-tree .json-row { padding-left: 1rem; white-space: pre-wrap; word-break: break-word; }
+
+/* JSON editor: transparent textarea over a highlighted <pre> */
+.json-editor { position: relative; }
+.json-editor pre, .json-editor textarea {
+    @apply m-0 font-mono text-xs leading-5;
+    padding: 0.625rem 0.75rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+    tab-size: 2;
+}
+.json-editor pre { position: absolute; inset: 0; overflow: hidden; pointer-events: none; color: var(--color-ink-200); }
+.json-editor textarea {
+    position: relative; width: 100%; min-height: 8rem; resize: vertical; background: transparent;
+    color: transparent; caret-color: #fff; border: 0; outline: none;
+}
+.json-editor textarea::placeholder { color: var(--color-ink-500); }
+
+/* Live mode: unmistakable */
+.live-stripes {
+    background-image: repeating-linear-gradient(-45deg, rgb(220 38 38 / 0.9) 0 12px, rgb(153 27 27 / 0.9) 12px 24px);
+}
