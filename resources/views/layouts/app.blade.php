@@ -20,7 +20,7 @@
 @if ($isLive)
     <div class="live-stripes sticky top-0 z-50 px-4 py-1.5 text-center text-xs font-bold tracking-widest text-white" role="alert">
         LIVE MODE · REQUESTS USE PRODUCTION CREDENTIALS AND CAN MOVE REAL MONEY
-    </div>
+    </div> 
 @endif
 
 <div class="flex min-h-full flex-col {{ $isLive ? 'ring-4 ring-inset ring-red-600/70' : '' }}">

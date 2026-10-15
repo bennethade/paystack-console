@@ -24,7 +24,7 @@ class EndpointRegistryTest extends TestCase
         $this->assertGreaterThan(160, Endpoint::count());
 
         foreach (['transaction.initialize', 'transaction.verify', 'bank.list', 'customer.create', 'transfer.initiate',
-            'subscription.disable', 'refund.create', 'dedicated_account.create', 'preauthorization.capture', 'capitec_pay.requery'] as $key) {
+            'subscription.disable', 'refund.create', 'dedicated_account.create', 'preauthorization.capture', 'capitec_pay.requery', 'webhook_events.list'] as $key) {
             $this->assertDatabaseHas('paystack_endpoints', ['key' => $key]);
         }
     }
@@ -39,6 +39,11 @@ class EndpointRegistryTest extends TestCase
             'transferrecipient.delete' => ['DELETE', '/transferrecipient/{code}'],
             'virtual_terminal.delete_split_code' => ['DELETE', '/virtual_terminal/{code}/split_code'],
             'preauthorization.verify' => ['GET', '/preauthorization/verify/{reference}'],
+            'webhook_events.list' => ['GET', '/integration/webhooks/events'],
+            'webhook_events.lookup' => ['GET', '/integration/webhooks/events/lookup'],
+            'webhook_events.fetch' => ['GET', '/integration/webhooks/events/{id}'],
+            'webhook_events.resend' => ['POST', '/integration/webhooks/events/resend'],
+            'webhook_events.resend_matching' => ['POST', '/integration/webhooks/events/resend-matching'],
         ];
 
         foreach ($expected as $key => [$method, $path]) {
